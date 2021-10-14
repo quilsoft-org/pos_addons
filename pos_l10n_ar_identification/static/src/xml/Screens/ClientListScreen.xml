@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t owl="1" t-inherit="point_of_sale.ClientListScreen" t-inherit-mode="extension" t-name="ClientListScreenNew">
+        <xpath expr="//table[hasclass('client-list')]" position="replace">
+            <table class="client-list">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Resp. AFIP</th>
+                        <th>Tipo Doc.</th>
+                        <th>Número</th>
+                        <th t-if="!env.isMobile">Phone</th>
+                    </tr>
+                </thead>
+                <tbody class="client-list-contents"/>
+            </table>
+        </xpath>
+    </t>
+    <t owl="1" t-inherit="point_of_sale.ClientListScreen" t-inherit-mode="extension" t-name="ClientLine">
+        <xpath expr="//tbody[hasclass('client-list-contents')]" position="replace">
+            <t t-as="partner" t-foreach="clients" t-key="partner.id">
+                <ClientLine detailIsShown="state.detailIsShown" partner="partner" selectedClient="state.selectedClient" t-on-click-client="clickClient"/>
+            </t>
+        </xpath>
+    </t>
+</templates>
