@@ -171,7 +171,7 @@ class OrderListScreenWidget extends IndependentToOrderScreen {
             'body': "Este es un pedido ya devuelto",});
         }
         else{
-            Gui.showPopup('ReturnWidget',{ref: order_id.pos_reference,client:client});
+            Gui.showPopup('ReturnWidget',{order_id : order_id.id, ref: order_id.pos_reference,client:client});
 
         }
 

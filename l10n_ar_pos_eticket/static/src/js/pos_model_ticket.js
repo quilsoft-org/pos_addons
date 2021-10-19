@@ -11,9 +11,10 @@ odoo.define('l10n_ar_pos_eticket.pos_model_ticket',function(require){
     var l10n_ar_afip_qr_code="";
     var l10n_ar_afip_auth_code_due="";
     var l10n_latam_document_type_id="";
+    var l10n_latam_document_name="";
     var l10n_ar_gross_income_number="";
     var invoice_date_due="";
-    var company_id="";
+    var company_id=1;
     var street="";
     var city="";
     var l10n_ar_afip_start_date="";
@@ -77,13 +78,14 @@ odoo.define('l10n_ar_pos_eticket.pos_model_ticket',function(require){
                                      ).then(function (einvoicejm) {
                                         
                                         if (account_move>0) {
-                                        console.log("cargando account_move");
-                                        console.log(einvoicejm);
+
                                          l10n_ar_afip_auth_code = einvoicejm[0]['l10n_ar_afip_auth_code'];
                                          l10n_ar_afip_qr_code= einvoicejm[0]['l10n_ar_afip_qr_code'];
                                          l10n_ar_afip_auth_code_due= einvoicejm[0]['l10n_ar_afip_auth_code_due'];
                                          //l10n_latam_document_type_id = einvoicejm[0]['l10n_latam_document_type_id'];
                                          l10n_latam_document_type_id = einvoicejm[0]['l10n_latam_document_type_id'][1].split(" ")[0];
+                                         l10n_latam_document_name = einvoicejm[0]['l10n_latam_document_type_id'][1].substr(einvoicejm[0]['l10n_latam_document_type_id'][1].indexOf(" ") + 1);
+
                                          invoice_date_due= einvoicejm[0]['invoice_date_due'];
                                          var split_invoice_date_due=invoice_date_due.split('-');
                                          invoice_date_due=split_invoice_date_due[2]+"-"+split_invoice_date_due[1]+"-"+split_invoice_date_due[0];
@@ -92,11 +94,10 @@ odoo.define('l10n_ar_pos_eticket.pos_model_ticket',function(require){
 
                                         }).then(function (company) {
 
-                                        console.log("companyyyyyyyy");
                                           rpc.query({
                                           model: 'res.company',
                                           method: 'search_read',
-                                          args: [[['id', '=', company_id]], ['l10n_ar_afip_start_date','l10n_ar_gross_income_number','street', 'city', 'state_id', 'country_id', 'company_registry']],
+                                          args: [[['id', '=', company_id ]], ['l10n_ar_afip_start_date','l10n_ar_gross_income_number','street', 'city', 'state_id', 'country_id', 'company_registry']],
                                     }).then(function (company_partner) {
                                         l10n_ar_afip_start_date=company_partner[0]['l10n_ar_afip_start_date'];
                                             if(l10n_ar_afip_start_date!=false){
@@ -149,6 +150,7 @@ odoo.define('l10n_ar_pos_eticket.pos_model_ticket',function(require){
                 receipt.l10n_ar_afip_start_date=l10n_ar_afip_start_date
                 receipt.l10n_ar_gross_income_number = l10n_ar_gross_income_number
 
+                receipt.l10n_latam_document_name = l10n_latam_document_name
 
             }
             return receipt

@@ -55,12 +55,12 @@
                 <div class="afip-invoice-info" >
                     <hr />
                     <strong>
-                    FACTURA <t t-esc="receipt.invoice_letter"/> - ORIGINAL
+                    <t t-esc="receipt.l10n_latam_document_name"/> - ORIGINAL
                         
                             - COD <t t-esc="receipt.l10n_latam_document_type_id"/>
                         
                         <br />
-                    N° DE FACTURA: <t t-esc="receipt.invoice_id"/><br />
+                    N°: <t t-esc="receipt.invoice_id"/><br />
                     FECHA: <t t-esc="receipt.invoice_date_due"/></strong>
                     <br />
                     <hr />

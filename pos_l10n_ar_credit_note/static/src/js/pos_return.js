@@ -39,7 +39,8 @@ class ReturnWidget extends AbstractAwaitablePopup {
     render_list(){
         $("#table-body").empty();
         var lines = [];
-       var pos_reference = this.props.ref
+       var pos_reference = this.props.ref;
+       console.log(this.props);
         rpc.query({
                 model: 'pos.order',
                 method: 'get_lines',
@@ -122,7 +123,7 @@ class ReturnWidget extends AbstractAwaitablePopup {
                     quantity: -(return_qty),
                     discount:row.cells[4].innerHTML,
                     merge: false,
-                    extras: {return_ref: this.props.ref,
+                    extras: {return_ref: this.props.ref, res_id: this.props.order_id ,
                             label:row.cells[5].innerHTML},
                     });
 

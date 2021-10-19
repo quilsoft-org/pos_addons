@@ -17,6 +17,8 @@
 #
 ############################################################################## # 
 from odoo import models, api, fields
+import logging
+_logger = logging.getLogger(__name__)
 
 
 class PosOrderReturn(models.Model):
@@ -77,6 +79,24 @@ class PosOrderReturn(models.Model):
                         parent_order.return_status = 'partialy_return'
 
         return order
+
+    def _prepare_invoice_vals(self):
+        vals = super()._prepare_invoice_vals()
+        order = self.env['pos.order']
+        if self.return_ref:
+            order = self.search([('pos_reference', '=', self.return_ref)])
+
+        if len(order) and order.account_move:
+            vals['reversed_entry_id'] = order.account_move.id
+        return vals
+
+    """def _create_invoice(self, move_vals):
+
+        # TODO: si quiero validar sin factura uso return self.env['account.move']
+
+        new_move = super()._create_invoice(move_vals)
+
+        return new_move"""
 
 
 class PosOrderLineReturn(models.Model):
