@@ -18,13 +18,13 @@
 ############################################################################## # 
 {
     'name': 'Credit Note In POS',
-    'version': '14.0.2.0.0',
+    'version': '14.0.2.0.1',
     'category': 'Point of Sale',
     'summary': 'Credit Note In POS',
-    'author': 'Pronexo',
-    'maintainer': 'Pronexo',
+    'author': 'Pronexo, QUILSOFT',
+    'maintainer': 'quilsoft',
     'images': ['static/description/banner.png'],
-    'website': 'https://www.pronexo.com',
+    'website': 'https://www.quilsoft.com',
     'depends': ['point_of_sale'],
     'data': [
              'views/return.xml',
