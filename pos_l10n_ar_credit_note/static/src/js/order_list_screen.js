@@ -97,6 +97,7 @@ class OrderListScreenWidget extends IndependentToOrderScreen {
 
     get _searchFields() {
             var fields = {
+                'Factura': (order) => order.account_move[1],
                 'Receipt Number': (order) => order.name,
                 Date: (order) => order.date_order,
                 Customer: (order) => order.partner_id[1],

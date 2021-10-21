@@ -15,8 +15,11 @@ var session = require('web.session');
 
 models.load_models({
     model:  'pos.order',
-    fields: ['name', 'partner_id','date_order','amount_total', 'amount_tax',
-        'pos_reference','lines','state','session_id','company_id','return_ref','return_status'],
+    fields: ['name', 'partner_id','date_order','amount_total', 'amount_tax','account_move',
+        'pos_reference','lines','state','session_id','company_id','return_ref','return_status', 
+        'refund_from_order_id'],
+    domain: function(self){ return [['return_ref', '=', false]]; },
+
     loaded: function(self, orders){
 
         self.orders = orders;
@@ -33,12 +36,6 @@ models.load_models({
     }
     }
 });
-
-
-
-
-
-
 
 
 var _super_orderline = models.Orderline;

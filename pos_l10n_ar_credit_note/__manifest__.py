@@ -18,7 +18,7 @@
 ############################################################################## # 
 {
     'name': 'Credit Note In POS',
-    'version': '14.0.2.0.1',
+    'version': '14.0.2.0.2',
     'category': 'Point of Sale',
     'summary': 'Credit Note In POS',
     'author': 'Pronexo, QUILSOFT',

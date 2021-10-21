@@ -17,6 +17,9 @@
 #
 ############################################################################## # 
 from odoo import models, api, fields
+from odoo.exceptions import UserError
+
+
 import logging
 _logger = logging.getLogger(__name__)
 
@@ -24,6 +27,10 @@ _logger = logging.getLogger(__name__)
 class PosOrderReturn(models.Model):
     _inherit = 'pos.order'
 
+    refund_from_order_id = fields.Many2one(
+        'pos.order',
+        string='Field Label',
+    )
     return_ref = fields.Char(string='Return Ref', readonly=True, copy=False)
     return_status = fields.Selection([
         ('nothing_return', 'Nothing Returned'),
@@ -56,6 +63,9 @@ class PosOrderReturn(models.Model):
         order = super(PosOrderReturn, self)._order_fields(ui_order)
         if 'return_ref' in ui_order.keys() and ui_order['return_ref']:
             order['return_ref'] = ui_order['return_ref']
+            for line in ui_order['lines']:
+                if 'line_id' not in line[2] or not line[2]['line_id']: 
+                    raise UserError("No puede mezclar devoluciones y ventas")
             parent_order = self.search([('pos_reference', '=', ui_order['return_ref'])], limit=1)
 
             updated_lines = ui_order['lines']
@@ -63,7 +73,7 @@ class PosOrderReturn(models.Model):
             qty = 0
             for uptd in updated_lines:
                 line = self.env['pos.order.line'].search([('order_id', '=', parent_order.id),
-                                                           ('id', '=', uptd[2]['line_id'])], limit=1)
+                                                          ('id', '=', uptd[2]['line_id'])], limit=1)
                 if line:
                     line.returned_qty += -(uptd[2]['qty'])
             for line in parent_order.lines:
@@ -72,7 +82,6 @@ class PosOrderReturn(models.Model):
             if qty-ret == 0:
                 if parent_order:
                     parent_order.return_status = 'fully_return'
-                    print(parent_order.return_status)
             elif ret:
                 if qty > ret:
                     if parent_order:

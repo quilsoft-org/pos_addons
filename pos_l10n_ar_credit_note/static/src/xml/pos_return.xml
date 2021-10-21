@@ -45,7 +45,7 @@
                         <div class="col start wide">Date</div>
                         <div class="col start wide">Receipt Number</div>
                         <div class="col start">Customer</div>
-                        <div class="col start">Return Ref</div>
+                        <div class="col start">Status</div>
                     </div>
                     <t t-foreach="ordersList" t-as="order" t-key="order.cid">
                         <div class="order-row pointer" t-on-click="return_click(order)">
@@ -53,16 +53,23 @@
                                 <t t-esc="order.date_order"></t>
                             </div>
                             <div class="col start wide">
-                                <t t-esc="order.pos_reference"></t>
+                                <div>
+                                <t t-if="order.account_move">
+                                    <strong t-esc="order.account_move[1]"/><br/>
+                                </t>
+                                <span t-esc="order.pos_reference"/>
+                                </div>
                             </div>
                             <div class="col start">
                                 <t t-esc="order.partner_id[1]"></t>
                             </div>
                             <div class="col start">
-                                <t t-if="order.return_ref == false">
+
+                                <t t-if="order.return_status == 'fully_return'">
+                                    Devolución completa
                                 </t>
-                                <t t-else="">
-                                    <t t-esc="order.return_ref"></t>
+                                <t t-if="order.return_status == 'partialy_return'">
+                                    Devolución parcial
                                 </t>
                             </div>
                         </div>

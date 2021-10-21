@@ -124,6 +124,7 @@ class ReturnWidget extends AbstractAwaitablePopup {
                     discount:row.cells[4].innerHTML,
                     merge: false,
                     extras: {return_ref: this.props.ref, res_id: this.props.order_id ,
+                            refund_from_order_id: this.props.order_id ,
                             label:row.cells[5].innerHTML},
                     });
 
