@@ -8,7 +8,7 @@ odoo.define('l10n_ar_pos_eticket.pos_model_ticket',function(require){
     var core = require('web.core');
     var qweb = core.qweb;
     var l10n_ar_afip_auth_code="";
-    var l10n_ar_afip_qr_code="";
+    var l10n_ar_afip_qr_image="";
     var l10n_ar_afip_auth_code_due="";
     var l10n_latam_document_type_id="";
     var l10n_latam_document_name="";
@@ -68,7 +68,7 @@ odoo.define('l10n_ar_pos_eticket.pos_model_ticket',function(require){
                                          args: [[['id', '=', account_move]], ['l10n_ar_afip_auth_code',
                                                                             'l10n_ar_afip_auth_code_due',
                                                                             'l10n_ar_afip_barcode',
-                                                                            'l10n_ar_afip_qr_code',
+                                                                            'l10n_ar_afip_qr_image',
                                                                             'invoice_date_due',
                                                                             'l10n_latam_document_type_id',
                                                                             'company_id',
@@ -80,7 +80,7 @@ odoo.define('l10n_ar_pos_eticket.pos_model_ticket',function(require){
                                         if (account_move>0) {
 
                                          l10n_ar_afip_auth_code = einvoicejm[0]['l10n_ar_afip_auth_code'];
-                                         l10n_ar_afip_qr_code= einvoicejm[0]['l10n_ar_afip_qr_code'];
+                                         l10n_ar_afip_qr_image= einvoicejm[0]['l10n_ar_afip_qr_image'];
                                          l10n_ar_afip_auth_code_due= einvoicejm[0]['l10n_ar_afip_auth_code_due'];
                                          //l10n_latam_document_type_id = einvoicejm[0]['l10n_latam_document_type_id'];
                                          l10n_latam_document_type_id = einvoicejm[0]['l10n_latam_document_type_id'][1].split(" ")[0];
@@ -143,7 +143,7 @@ odoo.define('l10n_ar_pos_eticket.pos_model_ticket',function(require){
                 receipt.invoice_number = invoice_number
                 receipt.invoice_letter = invoice_letter
                 receipt.l10n_ar_afip_auth_code=l10n_ar_afip_auth_code
-                receipt.l10n_ar_afip_qr_code=l10n_ar_afip_qr_code
+                receipt.l10n_ar_afip_qr_image=l10n_ar_afip_qr_image
                 receipt.l10n_ar_afip_auth_code_due=l10n_ar_afip_auth_code_due
                 receipt.l10n_latam_document_type_id=l10n_latam_document_type_id
                 receipt.invoice_date_due = invoice_date_due

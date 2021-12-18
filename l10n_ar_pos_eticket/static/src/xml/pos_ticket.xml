@@ -93,9 +93,9 @@
             <xpath expr="//div[hasclass('before-footer')]" position="after">  
             <t t-if="receipt.l10n_ar_afip_auth_code">
                 <div class="afip-cae-info"  style="text-align: center; font-size: 75%;">
-                    <t t-if="receipt.l10n_ar_afip_qr_code">
+                    <t t-if="receipt.l10n_ar_afip_qr_image">
                         <div style="overflow: hidden;">
-                            <img t-attf-src="/report/barcode/?type={{'QR'}}&amp;value={{receipt.l10n_ar_afip_qr_code}}&amp;width={{180}}&amp;height={{180}}" style="width:180px;height:180px" />
+                            <img class="pos-afip-qr" t-attf-src="data:image/png;base64,{{receipt.l10n_ar_afip_qr_image}}" alt="afip"/>
                         </div>
                     </t>
                     <strong>CAE:</strong> <t t-esc="receipt.l10n_ar_afip_auth_code"/>
@@ -106,20 +106,6 @@
             </t>
         </xpath>  
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
         <xpath expr="//t[@t-if='!isTaxIncluded']" position="replace">
         <!--<t t-jquery="t[t-if*='taxincluded']" t-operation="replace">
         </t>-->
